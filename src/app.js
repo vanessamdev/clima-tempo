@@ -114,16 +114,53 @@ app.post('/weather/multiple', async (req, res) => {
   }
 });
 
+// Rota de previsão 5 dias
+app.get('/forecast/:city', async (req, res) => {
+  try {
+    const { city } = req.params;
+
+    if (!city) {
+      return res.status(400).json({ error: 'Nome da cidade é obrigatório' });
+    }
+
+    // 1. Busca coordenadas
+    const location = await geocodingService.getCoordinates(city);
+
+    // 2. Busca previsão de 5 dias
+    const forecast = await weatherService.getForecast(
+      location.latitude,
+      location.longitude
+    );
+
+    // 3. Retorna dados
+    res.json({
+      location: {
+        name: location.name,
+        country: location.country
+      },
+      previsao: forecast
+    });
+
+  } catch (error) {
+    console.error('Erro:', error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Rota raiz - instruções de uso
 app.get('/', (req, res) => {
   res.json({
     mensagem: 'API de Clima - Open-Meteo',
     uso: {
-      buscarClima: 'GET /weather/:cidade',
-      buscarVarias: 'POST /weather/multiple',
-      exemplo: 'GET /weather/São Paulo',
+      climaAtual: 'GET /weather/:cidade',
+      previsao5Dias: 'GET /forecast/:cidade',
+      variasCidades: 'POST /weather/multiple',
       healthCheck: 'GET /health',
       cacheStats: 'GET /cache/stats'
+    },
+    exemplos: {
+      climaAtual: '/weather/São Paulo',
+      previsao: '/forecast/São Paulo'
     }
   });
 });
