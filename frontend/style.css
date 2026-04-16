@@ -1,0 +1,449 @@
+/* ==========================================
+   CLIMA TEMPO - ESTILOS
+   ========================================== */
+
+/* ---------- VARIÁVEIS CSS ---------- */
+:root {
+  /* Cores quentes (sol e natureza) */
+  --color-primary: #f59e0b;      /* Laranja/Amarelo */
+  --color-primary-dark: #d97706;
+  --color-secondary: #84cc16;    /* Verde suave */
+  --color-accent: #fbbf24;       /* Amarelo dourado */
+  
+  /* Cores neutras */
+  --color-white: #ffffff;
+  --color-light: #f8fafc;
+  --color-gray: #64748b;
+  --color-dark: #1e293b;
+  
+  /* Cores de feedback */
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+  
+  /* Bordas */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  
+  /* Transições */
+  --transition: all 0.3s ease;
+}
+
+/* ---------- RESET BÁSICO ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- BODY E BACKGROUND ---------- */
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  
+  /* Imagem de fundo (placeholder - paisagem ensolarada) */
+  background-image: url('https://images.unsplash.com/photo-1601297183305-6df142704ea2?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  
+  /* Fallback se a imagem não carregar */
+  background-color: var(--color-primary);
+}
+
+/* ---------- OVERLAY ESCURO ---------- */
+/* Melhora a leitura do texto sobre a imagem */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Gradiente escuro com tom quente */
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.7) 0%,
+    rgba(245, 158, 11, 0.3) 100%
+  );
+  
+  z-index: 1;
+}
+
+/* ---------- CONTAINER PRINCIPAL ---------- */
+.container {
+  position: relative;
+  z-index: 2;
+  
+  /* Centraliza vertical e horizontalmente */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 20px;
+}
+
+/* ---------- CARD PRINCIPAL ---------- */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  
+  /* Animação de entrada */
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- CABEÇALHO DO CARD ---------- */
+.card-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.card-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+}
+
+.card-header p {
+  font-size: 0.9rem;
+  color: var(--color-gray);
+}
+
+/* ---------- FORMULÁRIO DE BUSCA ---------- */
+.search-form {
+  margin-bottom: 24px;
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+}
+
+/* Input de cidade */
+#city-input {
+  flex: 1;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-family: inherit;
+  
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  
+  transition: var(--transition);
+}
+
+/* Foco no input */
+#city-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+/* Placeholder */
+#city-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Botão de busca */
+#search-btn {
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* Hover no botão */
+#search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+/* Botão pressionado */
+#search-btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- LOADING ---------- */
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: var(--color-gray);
+}
+
+/* ---------- ERRO ---------- */
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.error p {
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+/* ---------- RESULTADO DO CLIMA ---------- */
+.weather-result {
+  text-align: center;
+  padding-top: 8px;
+  
+  /* Animação de entrada */
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Localização */
+.location h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.location p {
+  font-size: 0.9rem;
+  color: var(--color-gray);
+  margin-bottom: 16px;
+}
+
+/* Temperatura */
+.temperature {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+#temp-value {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1;
+}
+
+.temp-unit {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-gray);
+  margin-top: 8px;
+}
+
+/* Condição climática */
+.condition {
+  font-size: 1.1rem;
+  color: var(--color-primary-dark);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* Detalhes (umidade, vento) */
+.weather-details {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 0.85rem;
+  color: var(--color-gray);
+}
+
+.detail-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* ---------- PREVISÃO 5 DIAS ---------- */
+.forecast {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+  
+  animation: fadeIn 0.4s ease;
+}
+
+.forecast h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.forecast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.forecast-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  padding: 12px 16px;
+  background: var(--color-light);
+  border-radius: var(--radius-sm);
+  
+  transition: var(--transition);
+}
+
+.forecast-item:hover {
+  background: #f1f5f9;
+}
+
+.forecast-day {
+  font-weight: 500;
+  color: var(--color-dark);
+  min-width: 100px;
+}
+
+.forecast-condition {
+  font-size: 0.85rem;
+  color: var(--color-gray);
+  flex: 1;
+  text-align: center;
+}
+
+.forecast-temps {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.temp-max {
+  color: var(--color-primary-dark);
+}
+
+.temp-min {
+  color: var(--color-gray);
+}
+
+/* ---------- RODAPÉ ---------- */
+.footer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- UTILITÁRIOS ---------- */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+@media (max-width: 480px) {
+  .card {
+    padding: 24px 20px;
+  }
+  
+  .card-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .input-group {
+    flex-direction: column;
+  }
+  
+  #search-btn {
+    width: 100%;
+  }
+  
+  #temp-value {
+    font-size: 3.5rem;
+  }
+  
+  .weather-details {
+    gap: 24px;
+  }
+  
+  .forecast-item {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .forecast-condition {
+    order: 3;
+    width: 100%;
+    text-align: left;
+  }
+}

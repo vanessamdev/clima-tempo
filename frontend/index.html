@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clima Tempo</title>
+  
+  <!-- Fonte Google - Poppins para visual moderno -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ícones do clima -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+  
+  <!-- Nosso CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Overlay escuro sobre a imagem de fundo -->
+  <div class="overlay"></div>
+
+  <!-- Container principal centralizado -->
+  <main class="container">
+    
+    <!-- Card principal -->
+    <div class="card">
+      
+      <!-- Cabeçalho com logo/título -->
+      <header class="card-header">
+        <h1>🌤️ Clima Tempo</h1>
+        <p>Descubra o clima da sua cidade</p>
+      </header>
+
+      <!-- Formulário de busca -->
+      <form id="search-form" class="search-form">
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="city-input" 
+            placeholder="Digite o nome da cidade..."
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="search-btn">
+            Buscar
+          </button>
+        </div>
+      </form>
+
+      <!-- Área de loading (oculta por padrão) -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Buscando clima...</p>
+      </div>
+
+      <!-- Área de erro (oculta por padrão) -->
+      <div id="error" class="error hidden">
+        <p id="error-message">Erro ao buscar cidade</p>
+      </div>
+
+      <!-- Resultado do clima (oculto por padrão) -->
+      <div id="weather-result" class="weather-result hidden">
+        
+        <!-- Informações da cidade -->
+        <div class="location">
+          <h2 id="city-name">São Paulo</h2>
+          <p id="country">Brasil</p>
+        </div>
+
+        <!-- Temperatura principal -->
+        <div class="temperature">
+          <span id="temp-value">22</span>
+          <span class="temp-unit">°C</span>
+        </div>
+
+        <!-- Condição climática -->
+        <p id="weather-condition" class="condition">Parcialmente nublado</p>
+
+        <!-- Detalhes adicionais -->
+        <div class="weather-details">
+          <div class="detail">
+            <span class="detail-label">💧 Umidade</span>
+            <span id="humidity" class="detail-value">65%</span>
+          </div>
+          <div class="detail">
+            <span class="detail-label">💨 Vento</span>
+            <span id="wind" class="detail-value">12 km/h</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Previsão 5 dias (oculta por padrão) -->
+      <div id="forecast" class="forecast hidden">
+        <h3>Próximos dias</h3>
+        <div id="forecast-list" class="forecast-list">
+          <!-- Preenchido via JavaScript -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+      <p>Dados fornecidos por <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a></p>
+    </footer>
+
+  </main>
+
+  <!-- Nosso JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
