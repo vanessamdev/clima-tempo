@@ -1,66 +1,113 @@
+/**
+ * @fileoverview Sistema de Cache em Memória
+ * @description Cache simples com expiração automática para evitar chamadas repetidas à API
+ * @module utils/cache
+ */
+
 const config = require('../config');
 
 /**
- * SISTEMA DE CACHE SIMPLES
- * 
- * O que é cache?
- * É como uma "memória temporária" que guarda resultados de operações
- * para não precisar repetir a mesma busca várias vezes.
+ * @typedef {Object} CacheItem
+ * @property {any} dados - Dados armazenados no cache
+ * @property {number} timestamp - Momento em que o item foi salvo (ms desde epoch)
  */
 
+/**
+ * @typedef {Object} CacheStats
+ * @property {number} totalItens - Quantidade de itens no cache
+ * @property {string[]} chaves - Lista de todas as chaves armazenadas
+ * @property {number} tempoExpiracaoMinutos - Tempo de expiração configurado
+ */
+
+/** @type {Map<string, CacheItem>} */
 const cache = new Map();
 
-// Tempo de expiração vem da configuração (variável de ambiente)
+/** Tempo de expiração em milissegundos (configurável via .env) */
 const TEMPO_EXPIRACAO_MS = config.CACHE_EXPIRATION_MINUTES * 60 * 1000;
 
 /**
- * Busca um item no cache
- * @param {string} chave - Identificador único (ex: "clima:São Paulo")
- * @returns {any|null} - Dados do cache ou null se não existir/expirado
+ * Busca um item no cache verificando se ainda é válido.
+ * Itens expirados são automaticamente removidos.
+ * 
+ * @function buscar
+ * @param {string} chave - Identificador único do item (ex: "clima:-23.55,-46.63")
+ * @returns {any|null} Dados armazenados ou null se não existir/expirado
+ * 
+ * @example
+ * // Item existe e é válido
+ * const dados = buscar('clima:São Paulo');
+ * if (dados) {
+ *   console.log('Cache hit!', dados);
+ * }
+ * 
+ * @example
+ * // Item não existe ou expirou
+ * const dados = buscar('clima:CidadeNova');
+ * if (!dados) {
+ *   console.log('Cache miss, buscar na API...');
+ * }
  */
 function buscar(chave) {
-  // Verifica se a chave existe no cache
   if (!cache.has(chave)) {
     console.log(`[CACHE] ❌ Miss - "${chave}" não encontrado`);
     return null;
   }
 
-  // Pega o item armazenado
   const item = cache.get(chave);
-
-  // Verifica se expirou
   const agora = Date.now();
   const tempoDecorrido = agora - item.timestamp;
 
   if (tempoDecorrido > TEMPO_EXPIRACAO_MS) {
-    // Expirou! Remove do cache e retorna null
     cache.delete(chave);
     console.log(`[CACHE] ⏰ Expirado - "${chave}" removido (${Math.round(tempoDecorrido / 1000)}s)`);
     return null;
   }
 
-  // Cache válido! Retorna os dados
   const tempoRestante = Math.round((TEMPO_EXPIRACAO_MS - tempoDecorrido) / 1000);
   console.log(`[CACHE] ✅ Hit - "${chave}" encontrado (expira em ${tempoRestante}s)`);
   return item.dados;
 }
 
 /**
- * Salva um item no cache
- * @param {string} chave - Identificador único
- * @param {any} dados - Dados a serem armazenados
+ * Salva um item no cache com timestamp atual.
+ * Se a chave já existir, o valor é sobrescrito.
+ * 
+ * @function salvar
+ * @param {string} chave - Identificador único do item
+ * @param {any} dados - Dados a serem armazenados (qualquer tipo serializável)
+ * @returns {void}
+ * 
+ * @example
+ * // Salvando dados de clima
+ * salvar('clima:-23.55,-46.63', {
+ *   temperature: 22,
+ *   humidity: 65
+ * });
+ * 
+ * @example
+ * // Salvando array de previsão
+ * salvar('previsao:-23.55,-46.63', [
+ *   { data: '2026-04-16', temp: 28 },
+ *   { data: '2026-04-17', temp: 26 }
+ * ]);
  */
 function salvar(chave, dados) {
   cache.set(chave, {
-    dados: dados,           // Os dados que queremos guardar
-    timestamp: Date.now()   // Momento em que foi salvo
+    dados: dados,
+    timestamp: Date.now()
   });
   console.log(`[CACHE] 💾 Salvo - "${chave}"`);
 }
 
 /**
- * Remove um item específico do cache
- * @param {string} chave - Identificador do item
+ * Remove um item específico do cache.
+ * 
+ * @function remover
+ * @param {string} chave - Identificador do item a ser removido
+ * @returns {void}
+ * 
+ * @example
+ * remover('clima:-23.55,-46.63');
  */
 function remover(chave) {
   cache.delete(chave);
@@ -68,7 +115,14 @@ function remover(chave) {
 }
 
 /**
- * Limpa todo o cache
+ * Remove todos os itens do cache.
+ * Útil para forçar atualização de todos os dados.
+ * 
+ * @function limpar
+ * @returns {void}
+ * 
+ * @example
+ * limpar(); // Remove tudo do cache
  */
 function limpar() {
   cache.clear();
@@ -76,8 +130,19 @@ function limpar() {
 }
 
 /**
- * Retorna estatísticas do cache
- * @returns {object} - Informações sobre o cache
+ * Retorna estatísticas sobre o estado atual do cache.
+ * 
+ * @function estatisticas
+ * @returns {CacheStats} Objeto com informações do cache
+ * 
+ * @example
+ * const stats = estatisticas();
+ * console.log(stats);
+ * // {
+ * //   totalItens: 5,
+ * //   chaves: ['clima:-23.55,-46.63', 'previsao:-23.55,-46.63'],
+ * //   tempoExpiracaoMinutos: 10
+ * // }
  */
 function estatisticas() {
   return {
@@ -87,7 +152,6 @@ function estatisticas() {
   };
 }
 
-// Exporta as funções para uso em outros arquivos
 module.exports = {
   buscar,
   salvar,
