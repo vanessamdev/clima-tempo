@@ -48,6 +48,18 @@ app.get('/weather/:city', async (req, res) => {
   }
 });
 
+// Rota raiz - instruções de uso
+app.get('/', (req, res) => {
+  res.json({
+    mensagem: 'API de Clima - Open-Meteo',
+    uso: {
+      buscarClima: 'GET /weather/:cidade',
+      exemplo: 'GET /weather/São Paulo',
+      healthCheck: 'GET /health'
+    }
+  });
+});
+
 // Rota de health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
