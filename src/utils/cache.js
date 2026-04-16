@@ -1,31 +1,17 @@
+const config = require('../config');
+
 /**
  * SISTEMA DE CACHE SIMPLES
  * 
  * O que é cache?
  * É como uma "memória temporária" que guarda resultados de operações
  * para não precisar repetir a mesma busca várias vezes.
- * 
- * Exemplo do dia a dia:
- * Imagine que você pergunta a temperatura de São Paulo.
- * Sem cache: toda vez que perguntar, vai buscar na API (lento)
- * Com cache: guarda a resposta por 10 min, próximas perguntas são instantâneas
- * 
- * Como funciona:
- * 1. Usuário pede clima de "São Paulo"
- * 2. Verificamos se já temos no cache E se não expirou
- * 3. Se sim → retorna do cache (rápido!)
- * 4. Se não → busca na API, salva no cache, retorna
  */
 
-// Usamos Map ao invés de objeto {} porque:
-// - Melhor performance para adicionar/remover itens frequentemente
-// - Mantém a ordem de inserção
-// - Chaves podem ser qualquer tipo (não só strings)
 const cache = new Map();
 
-// Tempo de expiração: 10 minutos em milissegundos
-// 10 min × 60 seg × 1000 ms = 600.000 ms
-const TEMPO_EXPIRACAO_MS = 10 * 60 * 1000;
+// Tempo de expiração vem da configuração (variável de ambiente)
+const TEMPO_EXPIRACAO_MS = config.CACHE_EXPIRATION_MINUTES * 60 * 1000;
 
 /**
  * Busca um item no cache

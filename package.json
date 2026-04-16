@@ -7,11 +7,17 @@
     "start": "node src/app.js",
     "dev": "node --watch src/app.js"
   },
-  "keywords": ["weather", "api", "open-meteo", "clima"],
+  "keywords": [
+    "weather",
+    "api",
+    "open-meteo",
+    "clima"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2"
   }
 }
