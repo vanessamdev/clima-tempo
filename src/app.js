@@ -3,6 +3,7 @@ const cors = require('cors');
 const config = require('./config');
 const geocodingService = require('./services/geocodingService');
 const weatherService = require('./services/weatherService');
+const cache = require('./utils/cache');
 
 const app = express();
 
@@ -55,9 +56,15 @@ app.get('/', (req, res) => {
     uso: {
       buscarClima: 'GET /weather/:cidade',
       exemplo: 'GET /weather/São Paulo',
-      healthCheck: 'GET /health'
+      healthCheck: 'GET /health',
+      cacheStats: 'GET /cache/stats'
     }
   });
+});
+
+// Rota de estatísticas do cache
+app.get('/cache/stats', (req, res) => {
+  res.json(cache.estatisticas());
 });
 
 // Rota de health check
