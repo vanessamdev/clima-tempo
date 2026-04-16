@@ -46,11 +46,12 @@ body {
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
   
-  /* Imagem de fundo (placeholder - paisagem ensolarada) */
-  background-image: url('https://images.unsplash.com/photo-1601297183305-6df142704ea2?w=1920&q=80');
+  /* Imagem de fundo local */
+  background-image: url('./assets/image-parque.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
   
   /* Fallback se a imagem não carregar */
   background-color: var(--color-primary);
@@ -65,12 +66,16 @@ body {
   width: 100%;
   height: 100%;
   
-  /* Gradiente escuro com tom quente */
+  /* Overlay mais forte para garantir legibilidade */
   background: linear-gradient(
     135deg,
-    rgba(30, 41, 59, 0.7) 0%,
-    rgba(245, 158, 11, 0.3) 100%
+    rgba(30, 41, 59, 0.75) 0%,
+    rgba(30, 41, 59, 0.5) 50%,
+    rgba(245, 158, 11, 0.25) 100%
   );
+  
+  /* Alternativa: overlay uniforme escuro */
+  /* background: rgba(30, 41, 59, 0.6); */
   
   z-index: 1;
 }
