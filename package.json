@@ -1,0 +1,17 @@
+{
+  "name": "clima-tempo-backend",
+  "version": "1.0.0",
+  "description": "API de clima usando Open-Meteo",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "keywords": ["weather", "api", "open-meteo", "clima"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}
