@@ -24,11 +24,21 @@ Meu Aplicativo Clima Tempo inclui as seguintes funcionalidades:
 - Sistema de cache que evita chamadas repetidas à API
 - Mensagem automática exibida quando a cidade não pode ser encontrada ou os dados não podem ser recuperados
 
-**Captura de Tela 1:** Cidade digitada – "São Paulo"
+### Captura de Tela 1: Interface inicial do aplicativo
 
-**Captura de Tela 2:** Exibição – "Temperatura: 22°C | Umidade: 65% | Vento: 12 km/h | Clima: Parcialmente nublado"
+![Interface inicial](./Captura%20de%20tela%202026-04-16%20205522.png)
 
-**Captura de Tela 3:** Previsão 5 dias – Lista com dia da semana, temperatura máxima/mínima e condição
+### Captura de Tela 2: Busca de cidade realizada
+
+![Busca realizada](./Captura%20de%20tela%202026-04-16%20205534.png)
+
+### Captura de Tela 3: Exibição do clima atual e previsão
+
+![Clima e previsão](./Captura%20de%20tela%202026-04-16%20205546.png)
+
+### Captura de Tela 4: Resultado completo com previsão de 5 dias
+
+![Resultado completo](./Captura%20de%20tela%202026-04-16%20210732.png)
 
 ---
 

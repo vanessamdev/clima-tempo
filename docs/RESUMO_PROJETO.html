@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumo do Projeto - Clima Tempo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #fff;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #f59e0b;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #f59e0b;
+    }
+    
+    h2 {
+      color: #1e293b;
+      font-size: 1.3rem;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    h3 {
+      color: #64748b;
+      font-size: 1rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+    
+    ul {
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+    }
+    
+    .screenshot {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .screenshot img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .screenshot p {
+      font-size: 0.9rem;
+      color: #64748b;
+      font-style: italic;
+      margin-top: 8px;
+      text-align: center;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    
+    .links {
+      background: #fffbeb;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    
+    .links a {
+      color: #f59e0b;
+      text-decoration: none;
+    }
+    
+    .links a:hover {
+      text-decoration: underline;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    
+    @media print {
+      body {
+        padding: 20px;
+      }
+      
+      .screenshot img {
+        max-height: 300px;
+        object-fit: contain;
+      }
+      
+      h2 {
+        page-break-after: avoid;
+      }
+      
+      .screenshot {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌤️ Resumo do Projeto do Aplicativo Clima Tempo</h1>
+
+  <h2>O que meu app faz:</h2>
+  <p>
+    Meu Aplicativo <strong>Clima Tempo</strong> permite que os usuários verifiquem o clima atual e a previsão de 5 dias de qualquer cidade que eles digitarem. Quando o usuário digita o nome da cidade e clica no botão "Buscar", o app usa a API de Geocodificação da Open-Meteo para encontrar as coordenadas da localização dessa cidade. Em seguida, ele envia essas coordenadas para a API de Previsão do Tempo da Open-Meteo para obter os dados atuais do clima. O app exibe a temperatura, umidade, velocidade do vento e uma descrição das condições climáticas em português, em um formato claro e amigável.
+  </p>
+
+  <h2>Funcionalidades do App (com Capturas de Tela):</h2>
+  <p>Meu Aplicativo Clima Tempo inclui as seguintes funcionalidades:</p>
+  <ul>
+    <li>Uma barra de busca para digitar o nome da cidade</li>
+    <li>Um botão para buscar as informações do clima</li>
+    <li>Uma área de exibição mostrando:
+      <ul>
+        <li>Temperatura em Celsius</li>
+        <li>Umidade relativa do ar</li>
+        <li>Velocidade do vento</li>
+        <li>Um resumo curto em texto, como "Parcialmente nublado" ou "Céu limpo"</li>
+      </ul>
+    </li>
+    <li>Previsão para os próximos 5 dias com temperaturas máxima e mínima</li>
+    <li>Suporte para visualizar o clima em várias cidades simultaneamente</li>
+    <li>Sistema de cache que evita chamadas repetidas à API</li>
+    <li>Mensagem automática exibida quando a cidade não pode ser encontrada</li>
+  </ul>
+
+  <h3>Captura de Tela 1: Interface inicial do aplicativo</h3>
+  <div class="screenshot">
+    <img src="./Captura de tela 2026-04-16 205522.png" alt="Interface inicial">
+    <p>Tela inicial com campo de busca e design responsivo</p>
+  </div>
+
+  <h3>Captura de Tela 2: Busca de cidade realizada</h3>
+  <div class="screenshot">
+    <img src="./Captura de tela 2026-04-16 205534.png" alt="Busca realizada">
+    <p>Usuário digitando o nome da cidade para busca</p>
+  </div>
+
+  <h3>Captura de Tela 3: Exibição do clima atual e previsão</h3>
+  <div class="screenshot">
+    <img src="./Captura de tela 2026-04-16 205546.png" alt="Clima e previsão">
+    <p>Resultado mostrando temperatura, umidade e condição climática</p>
+  </div>
+
+  <h3>Captura de Tela 4: Resultado completo com previsão de 5 dias</h3>
+  <div class="screenshot">
+    <img src="./Captura de tela 2026-04-16 210732.png" alt="Resultado completo">
+    <p>Previsão completa para os próximos 5 dias</p>
+  </div>
+
+  <h2>Como Usei IA:</h2>
+  <p>
+    Usei IA para apoiar meu processo de codificação. Ela me ajudou a entender como organizar as etapas do meu app, como primeiro obter a localização e depois buscar os dados do clima. A IA também me ajudou a:
+  </p>
+  <ul>
+    <li>Estruturar o projeto em camadas (services, utils, config)</li>
+    <li>Implementar um sistema de cache em memória</li>
+    <li>Escrever funções mais simples e reutilizáveis</li>
+    <li>Criar documentação JSDoc completa</li>
+    <li>Desenvolver um frontend responsivo com CSS moderno</li>
+    <li>Configurar variáveis de ambiente para segurança</li>
+  </ul>
+  <p>
+    Certifiquei-me de ler e entender todas as sugestões e usei apenas o código que compreendi totalmente.
+  </p>
+
+  <h2>O que Aprendi e o que Foi Desafiador:</h2>
+  <p>
+    Aprendi como trabalhar com APIs e como escrever código JavaScript que responde às ações do usuário. Foi um desafio:
+  </p>
+  <ul>
+    <li>Gerenciar múltiplas etapas na ordem correta (geocoding → weather)</li>
+    <li>Mostrar os resultados somente quando ambas as APIs tinham retornado os dados</li>
+    <li>Implementar cache para otimizar performance</li>
+    <li>Fazer requisições paralelas com Promise.all para múltiplas cidades</li>
+    <li>Criar um design responsivo que funciona em desktop e mobile</li>
+  </ul>
+  <p>
+    Também aprendi a testar diferentes partes do app para garantir que funcionasse corretamente e como tratar erros de forma elegante.
+  </p>
+
+  <h2>Uma Coisa da Qual Tenho Orgulho:</h2>
+  <p>
+    Tenho orgulho que o app funcione de forma fluida desde a entrada até a saída. Também implementei:
+  </p>
+  <ul>
+    <li>Um sistema de cache inteligente que evita chamadas desnecessárias à API</li>
+    <li>Previsão de 5 dias com tradução automática das condições climáticas para português</li>
+    <li>Uma funcionalidade onde os usuários podem verificar o clima para mais de uma cidade simultaneamente</li>
+    <li>Um design visual atraente com cores quentes que remetem ao sol e à natureza</li>
+  </ul>
+
+  <h2>Uma Coisa que Eu Melhoraria:</h2>
+  <p>Se eu tivesse mais tempo, melhoraria:</p>
+  <ul>
+    <li>Adicionar ícones animados para diferentes condições climáticas</li>
+    <li>Implementar armazenamento de buscas recentes (histórico)</li>
+    <li>Adicionar testes automatizados com Jest</li>
+    <li>Implementar autenticação de usuários</li>
+    <li>Fazer deploy em cloud (AWS, Heroku ou Vercel)</li>
+    <li>Adicionar gráficos de temperatura para a previsão</li>
+    <li>Implementar geolocalização automática do usuário</li>
+  </ul>
+
+  <h2>Tecnologias Utilizadas:</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tecnologia</th>
+        <th>Uso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Node.js</td>
+        <td>Runtime do backend</td>
+      </tr>
+      <tr>
+        <td>Express</td>
+        <td>Framework web</td>
+      </tr>
+      <tr>
+        <td>HTML5</td>
+        <td>Estrutura do frontend</td>
+      </tr>
+      <tr>
+        <td>CSS3</td>
+        <td>Estilização responsiva</td>
+      </tr>
+      <tr>
+        <td>JavaScript</td>
+        <td>Lógica frontend e backend</td>
+      </tr>
+      <tr>
+        <td>Open-Meteo API</td>
+        <td>Dados meteorológicos</td>
+      </tr>
+      <tr>
+        <td>dotenv</td>
+        <td>Variáveis de ambiente</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Links do Projeto:</h2>
+  <div class="links">
+    <p><strong>Repositório GitHub:</strong> <a href="https://github.com/vanessamdev/clima-tempo" target="_blank">https://github.com/vanessamdev/clima-tempo</a></p>
+    <p><strong>API utilizada:</strong> <a href="https://open-meteo.com/" target="_blank">https://open-meteo.com/</a></p>
+  </div>
+
+  <div class="footer">
+    <p><em>Documento criado como parte do projeto Clima Tempo</em></p>
+  </div>
+
+</body>
+</html>
